@@ -1,0 +1,24 @@
+{
+	"name": "fis-deploy-amdpackage",
+	"version": "1.0.0",
+	"description": "Packed AMD File And Converts AMD Code To Standard JavaScript",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/xitingwang/fis-deploy-amdpackage.git"
+	},
+	"keywords": [
+		"fis", "fis3", "package", "amd", "compress", "uglify-js",
+		"amdclear", "amdclean", "requirejs", "r.js"
+	],
+	"dependencies": {
+		"amdclean": "*",
+		"iconv-lite": "*",
+		"uglify-js": "*"
+	},
+	"author": "dw_wangchao1 <wangchao1@yy.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/xitingwang/fis-deploy-amdpackage/issues"
+	}
+}
