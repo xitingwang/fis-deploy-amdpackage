@@ -13,7 +13,8 @@ fis.match('src/**.js', {
 	deploy: [
 		fis.plugin('amdpackage', {
 			source: './src/index.js',
-			output: '../output/index.js'
+			output: '../output/index.js',
+			minify: true //开启压缩
 		}),
 		fis.plugin('local-deliver')
 	]

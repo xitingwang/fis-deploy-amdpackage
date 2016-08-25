@@ -3,7 +3,7 @@
  * @Date:   2016-08-24 20:17:17
  * Packed AMD File And Converts AMD Code To Standard JavaScript
  * @Last Modified by:   wangchao
- * @Last Modified time: 2016-08-25 17:09:33
+ * @Last Modified time: 2016-08-25 17:23:10
  */
 'use strict';
 const amdclean = require('amdclean');
@@ -32,13 +32,19 @@ module.exports = function(config) {
 					//把数组转换为utf8中文  
 					var content = iconv.decode(data, 'utf8');
 
-					//清理amd压缩脚本
-					var ret = uglifyJs.minify(amdclean.clean(content), {
-						fromString: true
-					});
+					//清理amd
+					content = amdclean.clean(content);
+
+					if (config.minify) {
+						//压缩脚本
+						var ret = uglifyJs.minify(content, {
+							fromString: true
+						});
+						content = ret.code;
+					}
 
 					//写入文件
-					fs.writeFile(output, ret.code, function(err) {
+					fs.writeFile(output, content, function(err) {
 						if (err)
 							console.log("清理AMD失败 " + err);
 						else
