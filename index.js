@@ -3,7 +3,7 @@
  * @Date:   2016-08-24 20:17:17
  * Packed AMD File And Converts AMD Code To Standard JavaScript
  * @Last Modified by:   wangchao
- * @Last Modified time: 2016-08-25 10:20:59
+ * @Last Modified time: 2016-08-25 17:09:33
  */
 'use strict';
 const amdclean = require('amdclean');
@@ -21,7 +21,7 @@ module.exports = function(config) {
 
 		//requirejs合并文件输出
 		var exec = childProcess.exec,
-			command = exec('r.js -o baseUrl=' + baseUrl + ' name=' + baseMod + ' out=' + output + ' optimize=none');
+			command = exec('./node_modules/requirejs/bin/r.js -o baseUrl=' + baseUrl + ' name=' + baseMod + ' out=' + output + ' optimize=none');
 
 		//命令退出执行文件处理
 		command.on('exit', function(code) {
@@ -29,14 +29,15 @@ module.exports = function(config) {
 				if (err)
 					console.log("打包文件失败 " + err);
 				else {
-					//把数组转换为gbk中文  
+					//把数组转换为utf8中文  
 					var content = iconv.decode(data, 'utf8');
 
+					//清理amd压缩脚本
 					var ret = uglifyJs.minify(amdclean.clean(content), {
 						fromString: true
 					});
 
-					//清理amd并写入文件
+					//写入文件
 					fs.writeFile(output, ret.code, function(err) {
 						if (err)
 							console.log("清理AMD失败 " + err);
